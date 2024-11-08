@@ -6,15 +6,19 @@ class TextType(Enum):
     ITALIC = "italic"
 
 class TextNode():
-    def __init__(self, text, text_type, url):
+    def __init__(self, text, text_type, url=None):
         self.text = text
         self.text_type = TextType(text_type)
-        if url and url.startswith('https://'):    
-            self.url = url
-        else: self.url = None
+        self.url = url
+        
 
     def __eq__(self, other):
-        if self.text == other.text and self.text_type == other.text_type and self.url == other.url:
+        if self.url and other.url:
+            if self.text == other.text and self.text_type == other.text_type and self.url == other.url:
+                return True
+            else:
+                return False
+        elif self.text == other.text and self.text_type == other.text_type:
             return True
         else:
             return False
